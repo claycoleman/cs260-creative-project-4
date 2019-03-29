@@ -1,0 +1,14 @@
+{
+  "name": "cp-4-claycoleman",
+  "version": "1.0.0",
+  "description": "creative project 4 for cs 260",
+  "main": "server.js",
+  "repository": "https://github.com/claycoleman/cs260-creative-project-4.git",
+  "author": "Clay Coleman <jclaytoncoleman@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "multer": "^1.4.1"
+  }
+}
