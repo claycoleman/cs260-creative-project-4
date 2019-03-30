@@ -18,11 +18,11 @@ We will have demos in class.
 Rubric for Grading
 We will grade your projects based on:
 
-- [ ] you used Vue for the front end,
-- [ ] you used Node for the back end,
+- [x] you used Vue for the front end,
+- [x] you used Node for the back end,
 you have an API that includes:
-- [ ] creating, 
-- [ ] reading, 
+- [x] creating, 
+- [x] reading, 
 - [ ] updating,
 - [ ] deleting data
 
