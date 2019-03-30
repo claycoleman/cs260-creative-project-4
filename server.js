@@ -46,7 +46,6 @@ const Post = mongoose.model('Post', postSchema);
 app.get('/api/author', async (req, res) => {
   try {
     let author = await Author.findById(req.query.authorId);
-    console.log(author)
     res.send(author);
   } catch (error) {
     console.log(error);
@@ -56,6 +55,8 @@ app.get('/api/author', async (req, res) => {
 
 // Get or create author
 app.post('/api/author', async (req, res) => {
+  console.log(req.body.name);
+
   try {
     let author = await Author.findOne({ name: req.body.name });
     if (!author) {
@@ -74,10 +75,9 @@ app.post('/api/author', async (req, res) => {
 // Get all posts
 app.get('/api/posts', async (req, res) => {
   try {
-    let filter = {};
-    if (req.params.authorId) {
-      filter.authorId = req.params.authorId;
-    }
+    let filter = {
+      authorId: req.query.authorId,
+    };
 
     let posts = await Post.find(filter);
     res.send(posts);
@@ -92,6 +92,7 @@ app.post('/api/posts', async (req, res) => {
   const post = new Post({
     title: req.body.title,
     body: req.body.body,
+    authorId: req.body.authorId,
     photoPath: req.body.photoPath,
   });
   try {

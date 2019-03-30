@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,600" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <title>TravelBlog</title>
   </head>
@@ -15,13 +15,17 @@
     </div>
     <div id="app" class="content">
       <h2>Welcome {{ this.author.name }}</h2>
-      <button v-on:click="openPosts">All Your Posts</button>
-      <button v-on:click="openNewPostForm">Add New Post</button>
+      <div class="inline">
+        <button :class="{ inactive: createNewPost }" v-on:click="openPosts">All Your Posts</button>
+        <button :class="{ inactive: !createNewPost }" v-on:click="openNewPostForm">
+          Add New Post
+        </button>
+      </div>
 
       <div v-if="!createNewPost">
         <div class="post" v-for="(post, index) in posts">
           <h3>{{ post.title }}</h3>
-          <img :src="post.path" />
+          <img :src="post.photoPath" />
           <div v-html="post.body"></div>
         </div>
       </div>
@@ -29,17 +33,29 @@
         <p>
           New Post
         </p>
-        <form id="colorForm" v-on:submit.prevent="getOrCreateUser">
+        <form v-on:submit.prevent="createPost">
           <div class="prettyInputWrapper">
             <input v-model="newTitle" v-bind:class="{ hasText: newTitle.trim().length !== 0  }" />
             <label>Title</label>
           </div>
-          <button type="submit">Create Post</button>
+          <p>Cover Photo</p>
+          <input type="file" name="photo" @change="fileChanged" />
+          <br />
+          <img id="coverPhoto" v-if="photo !== undefined" src="" />
+          <br />
+          <vue-editor v-model="newBody"></vue-editor>
+          <br />
+          <div v-if="errorText !== ''">
+            <p style="color: firebrick;">{{ errorText }}</p>
+          </div>
+          <div class="prettyInputWrapper">
+            <button type="submit">Create Post</button>
+          </div>
         </form>
       </div>
     </div>
     <div class="footer">
-      <a href="/admin.html">Admin</a>
+      <a href="/">Go Back Home</a>
     </div>
 
     <footer>
@@ -57,6 +73,7 @@
       integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA="
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/vue2-editor@2.6.6/dist/vue2-editor.js"></script>
     <script src="/posts.js"></script>
   </body>
 </html>
