@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>TravelBlog</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="title">
+        <h2>Clay Coleman</h2>
+        <h1>TravelBlog</h1>
+      </div>
+    </div>
+    <div id="app" class="content">
+      <h2>
+        Welcome to TravelBlog
+      </h2>
+      <p>
+        TravelBlog is the free site that offers everyone their own space to write about their
+        adventures. Enter your name below to get started!
+      </p>
+      <form id="colorForm" v-on:submit.prevent="getOrCreateUser">
+        <div class="prettyInputWrapper">
+          <input v-model="userName" v-bind:class="{ hasText: userName.trim().length !== 0  }" />
+          <label>Your Name</label>
+        </div>
+        <button type="submit">Let's Go!</button>
+      </form>
+    </div>
+    <div class="footer">
+      <a href="/admin.html">Admin</a>
+    </div>
+
+    <footer>
+      <a target="_blank" href="https://github.com/claycoleman/cs260-creative-project-4"
+        >GitHub Repo</a
+      >
+    </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"
+      integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js"
+      integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/index.js"></script>
+  </body>
+</html>
