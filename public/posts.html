@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>TravelBlog</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="title">
+        <h2>Clay Coleman</h2>
+        <h1>TravelBlog</h1>
+      </div>
+    </div>
+    <div id="app" class="content">
+      <h2>Welcome {{ this.author.name }}</h2>
+      <button v-on:click="openPosts">All Your Posts</button>
+      <button v-on:click="openNewPostForm">Add New Post</button>
+
+      <div v-if="!createNewPost">
+        <div class="post" v-for="(post, index) in posts">
+          <h3>{{ post.title }}</h3>
+          <img :src="post.path" />
+          <div v-html="post.body"></div>
+        </div>
+      </div>
+      <div v-else>
+        <p>
+          New Post
+        </p>
+        <form id="colorForm" v-on:submit.prevent="getOrCreateUser">
+          <div class="prettyInputWrapper">
+            <input v-model="newTitle" v-bind:class="{ hasText: newTitle.trim().length !== 0  }" />
+            <label>Title</label>
+          </div>
+          <button type="submit">Create Post</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer">
+      <a href="/admin.html">Admin</a>
+    </div>
+
+    <footer>
+      <a target="_blank" href="https://github.com/claycoleman/cs260-creative-project-4"
+        >GitHub Repo</a
+      >
+    </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"
+      integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js"
+      integrity="sha256-g+Q8DFAmG5+eyRPSydX0LY4TfjsL11XSDrIGerbbEdA="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/posts.js"></script>
+  </body>
+</html>

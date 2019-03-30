@@ -5,10 +5,10 @@ For this lab, you will create a website that uses Vue for the front end and Node
 ## Requirements
 This is a creative project, so you are welcome to build what you would like. The basic requirements are:
 
-- [ ] The site uses Vue for the front end
-- [ ] The site uses Node, Express, and Mongo on the back end
+- [x] The site uses Vue for the front end
+- [x] The site uses Node, Express, and Mongo on the back end
 - [ ] The site uses an API between the front end and back end, and supports create, read, update, and delete operations
-- [ ] The site contains a footer that links to your public GitHub repository
+- [x] The site contains a footer that links to your public GitHub repository
 - [x] The GitHub repository should be in your own GitHub account.
 
 Submission

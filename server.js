@@ -23,7 +23,7 @@ app.use(express.static('public'));
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/blog', {
+mongoose.connect('mongodb://localhost:27017/cp4-blog', {
   useNewUrlParser: true,
 });
 
@@ -34,12 +34,25 @@ const authorSchema = new mongoose.Schema({
 const postSchema = new mongoose.Schema({
   title: String,
   body: String,
-  photos: [ { path: String, paragraphIndex: Number, }],
+  authorId: String,
+  photoPath: String,
 });
 
 // Create models.
 const Author = mongoose.model('Author', authorSchema);
 const Post = mongoose.model('Post', postSchema);
+
+// Get author
+app.get('/api/author', async (req, res) => {
+  try {
+    let author = await Author.findById(req.query.authorId);
+    console.log(author)
+    res.send(author);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 // Get or create author
 app.post('/api/author', async (req, res) => {
@@ -61,7 +74,12 @@ app.post('/api/author', async (req, res) => {
 // Get all posts
 app.get('/api/posts', async (req, res) => {
   try {
-    let posts = await Post.find();
+    let filter = {};
+    if (req.params.authorId) {
+      filter.authorId = req.params.authorId;
+    }
+
+    let posts = await Post.find(filter);
     res.send(posts);
   } catch (error) {
     console.log(error);
@@ -74,7 +92,7 @@ app.post('/api/posts', async (req, res) => {
   const post = new Post({
     title: req.body.title,
     body: req.body.body,
-    photos: req.body.photos,
+    photoPath: req.body.photoPath,
   });
   try {
     await post.save();
@@ -91,8 +109,8 @@ app.put('/api/posts/:id', async (req, res) => {
     let post = await Post.findOne({ _id: req.params.id });
     post.title = req.body.title;
     post.body = req.body.body;
-    if (req.params.editPhotos) {
-      post.photos = req.params.photos;
+    if (req.params.editPhoto) {
+      post.photoPath = req.params.photoPath;
     }
     await post.save();
     res.send({ post });
@@ -120,7 +138,7 @@ app.post('/api/photos', upload.single('photo'), async (req, res) => {
     return res.sendStatus(400);
   }
   res.send({
-    path: '/user-images/' + req.file.filename,
+    photoPath: '/user-images/' + req.file.filename,
   });
 });
 
