@@ -27,6 +27,8 @@ var app = new Vue({
     editErrorText: '',
   },
   created() {
+    // note: this is hacky, but we haven't learned Vue routing yet and so I didn't want to implement it.
+    // we also haven't learned about creating Vue components – just top level webpages.
     const url = new URL(window.location.href);
     this.authorId = url.searchParams.get('au');
     this.getAuthor();
@@ -43,7 +45,6 @@ var app = new Vue({
     },
     async getAuthor() {
       try {
-        console.log(this.authorId);
         let response = await axios.get('/api/author', {
           params: {
             authorId: this.authorId,
@@ -54,8 +55,10 @@ var app = new Vue({
         return true;
       } catch (error) {
         console.log(error);
+        // note: this is hacky, but we haven't learned Vue routing yet and so I didn't want to implement it.
+        // we also haven't learned about creating Vue components – just top level webpages.
         // send you back home
-        window.location.href = '/index.html';
+        window.location.href = '/';
       }
     },
     async getPosts() {
@@ -72,8 +75,10 @@ var app = new Vue({
         return true;
       } catch (error) {
         console.log(error);
+        // note: this is hacky, but we haven't learned Vue routing yet and so I didn't want to implement it.
+        // we also haven't learned about creating Vue components – just top level webpages.
         // send you back home
-        window.location.href = '/index.html';
+        window.location.href = '/';
       }
     },
     openPosts() {
@@ -172,7 +177,9 @@ var app = new Vue({
       this.hasEditPhotoChanged = true;
     },
     logout() {
-      // fake auth, just using a url param  
+      // note: this is hacky, but we haven't learned Vue routing yet and so I didn't want to implement it.
+      // we also haven't learned about creating Vue components – just top level webpages.
+      // fake auth, just using a url param
       window.location.href = '/';
     },
   },

@@ -2,6 +2,10 @@
 For this lab, you will create a website that uses Vue for the front end and Node, Express, and Mongo for the back end. The front end should use an API to communicate with the back end, including creating, reading, updating, and deleting data stored on the back end. This website can be for anything you want, but should not be similar to the Vue apps we have built for activities or labs.
 
 
+## HELLO TAs
+Try using 'Clay Coleman' as the author name to see an example of a post that you can edit or delete. Or just log in using your own name, then you can create, edit, and delete posts as you see fit.
+
+
 ## Requirements
 This is a creative project, so you are welcome to build what you would like. The basic requirements are:
 
