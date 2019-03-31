@@ -4,14 +4,13 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,600" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <title>TravelBlog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
-    <div class="header">
-      <div class="title">
-        <h2>Clay Coleman</h2>
-        <h1>TravelBlog</h1>
-      </div>
+    <div id="title">
+      <h1>TravelBlog</h1>
+      <h2>By Clay Coleman</h2>
     </div>
     <div id="app" class="content">
       <h2>
@@ -26,11 +25,8 @@
           <input v-model="userName" v-bind:class="{ hasText: userName.trim().length !== 0  }" />
           <label>Your Name</label>
         </div>
-        <button type="submit">Let's Go!</button>
+        <button :class="{ inactive: !userName.trim() }" type="submit">Let's Go!</button>
       </form>
-    </div>
-    <div class="footer">
-      <a href="/admin.html">Admin</a>
     </div>
 
     <footer>

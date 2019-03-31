@@ -55,8 +55,6 @@ app.get('/api/author', async (req, res) => {
 
 // Get or create author
 app.post('/api/author', async (req, res) => {
-  console.log(req.body.name);
-
   try {
     let author = await Author.findOne({ name: req.body.name });
     if (!author) {
@@ -107,12 +105,16 @@ app.post('/api/posts', async (req, res) => {
 // Edit an post
 app.put('/api/posts/:id', async (req, res) => {
   try {
+    // req params comes through url
+    // req body comes through put
     let post = await Post.findOne({ _id: req.params.id });
     post.title = req.body.title;
     post.body = req.body.body;
-    if (req.params.editPhoto) {
-      post.photoPath = req.params.photoPath;
+
+    if (req.body.editPhoto) {
+      post.photoPath = req.body.photoPath;
     }
+
     await post.save();
     res.send({ post });
   } catch (error) {
@@ -124,6 +126,8 @@ app.put('/api/posts/:id', async (req, res) => {
 // Delete an post
 app.delete('/api/posts/:id', async (req, res) => {
   try {
+    // req params comes through url
+    // req body comes through put
     await Post.deleteOne({ _id: req.params.id });
     res.send({ success: true });
   } catch (error) {

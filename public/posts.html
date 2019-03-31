@@ -4,17 +4,19 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,600" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <title>TravelBlog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
-    <div class="header">
-      <div class="title">
-        <h2>Clay Coleman</h2>
+    <div class="permanent-inline">
+      <div id="title" style="flex: 3;">
         <h1>TravelBlog</h1>
+        <h2>By Clay Coleman</h2>
       </div>
+      <a href="/"><button type="button" class="close" style="background-color: #5d9cec; margin-top: 14px;">Log Out</button></a>
     </div>
     <div id="app" class="content">
-      <h2>Welcome {{ this.author.name }}</h2>
+      <h2>Current Author: {{ this.author.name }}</h2>
       <div class="inline">
         <button :class="{ inactive: createNewPost }" v-on:click="openPosts">All Your Posts</button>
         <button :class="{ inactive: !createNewPost }" v-on:click="openNewPostForm">
@@ -23,15 +25,20 @@
       </div>
 
       <div v-if="!createNewPost">
+        <h3 v-show="posts.length == 0" style="font-weight: lighter;">You don't have any posts!</h3>
         <div class="post" v-for="(post, index) in posts">
-          <h3>{{ post.title }}</h3>
+          <div class="titles">
+            <h3>{{ post.title }}</h3>
+            <span v-on:click="startEditing(index)">Edit Post</span>
+          </div>
           <img :src="post.photoPath" />
           <div v-html="post.body"></div>
         </div>
       </div>
       <div v-else>
         <p>
-          New Post
+          Add a new post below by entering a title, a cover photo for your post, and then by typing
+          in the text of your post. Your draft saves (except for the photo) as you type.
         </p>
         <form v-on:submit.prevent="createPost">
           <div class="prettyInputWrapper">
@@ -43,7 +50,7 @@
           <br />
           <img id="coverPhoto" v-if="photo !== undefined" src="" />
           <br />
-          <vue-editor v-model="newBody"></vue-editor>
+          <vue-editor v-model="newBody" placeholder="Post body..."></vue-editor>
           <br />
           <div v-if="errorText !== ''">
             <p style="color: firebrick;">{{ errorText }}</p>
@@ -53,11 +60,43 @@
           </div>
         </form>
       </div>
-    </div>
-    <div class="footer">
-      <a href="/">Go Back Home</a>
-    </div>
 
+      <transition v-if="editPost !== undefined" name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
+              <div class="modal-header">
+                <h1 class="modal-title">Edit Post</h1>
+                <button v-on:click="stopEditing">Cancel</button>
+              </div>
+              <div class="modal-body">
+                <div class="prettyInputWrapper">
+                  <input
+                    v-model="editTitle"
+                    v-bind:class="{ hasText: editTitle.trim().length !== 0  }"
+                  />
+                  <label>Title</label>
+                </div>
+                <p>Cover Photo</p>
+                <input type="file" name="photo" @change="editFileChanged" />
+                <br />
+                <img id="editCoverPhoto" :src="editPost.photoPath" />
+                <br />
+                <vue-editor v-model="editBody"></vue-editor>
+                <br />
+                <div v-if="editErrorText !== ''">
+                  <p style="color: firebrick;">{{ editErrorText }}</p>
+                </div>
+                <div class="inline">
+                  <button @click="updatePost" type="button">Update Post</button>
+                  <button @click="deletePost" type="button" class="close">Delete Post</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
     <footer>
       <a target="_blank" href="https://github.com/claycoleman/cs260-creative-project-4"
         >GitHub Repo</a

@@ -7,7 +7,7 @@ This is a creative project, so you are welcome to build what you would like. The
 
 - [x] The site uses Vue for the front end
 - [x] The site uses Node, Express, and Mongo on the back end
-- [ ] The site uses an API between the front end and back end, and supports create, read, update, and delete operations
+- [x] The site uses an API between the front end and back end, and supports create, read, update, and delete operations
 - [x] The site contains a footer that links to your public GitHub repository
 - [x] The GitHub repository should be in your own GitHub account.
 
@@ -23,10 +23,10 @@ We will grade your projects based on:
 you have an API that includes:
 - [x] creating, 
 - [x] reading, 
-- [ ] updating,
-- [ ] deleting data
+- [x] updating,
+- [x] deleting data
 
-- [ ] how well you follow web design principles: spacing, typography, color, consistency, and responsive design.
+- [x] how well you follow web design principles: spacing, typography, color, consistency, and responsive design.
 TAs will assign scores in these ranges:
 
 90-100: Excellent use of Vue, Node, Express, and Mongo and clearly follows web design principles

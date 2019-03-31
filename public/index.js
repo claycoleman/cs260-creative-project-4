@@ -5,6 +5,9 @@ var app = new Vue({
   },
   methods: {
     async getOrCreateUser() {
+      if (!this.userName.trim()) {
+        return;
+      }
       try {
         let response = await axios.post('/api/author', {
           name: this.userName,
